@@ -3,10 +3,13 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const path = require('path');
-const teacherRoutes = require('./routes/teacher');
-const submissionRoutes = require('./routes/submissions');
+const teacherRoutes = require('./api/teacher');
+const submissionRoutes = require('./api/submissions');
 
 const app = express();
+app.get("/", (req, res) => {
+  res.send("Server is running on Vercel!");
+});
 
 // Middleware
 app.use(cors());
@@ -30,6 +33,7 @@ mongoose.connect(process.env.MONGODB_URI)
 // Routes
 app.use('/api/teacher', teacherRoutes);
 app.use('/api', submissionRoutes);
+
 
 // Error handling
 app.use((err, req, res, next) => {
